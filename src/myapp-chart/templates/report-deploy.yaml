@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: report
+  labels:
+    app: report
+spec:
+  replicas: {{ .Values.replicaCount.report }}
+  selector:
+    matchLabels:
+      app: report
+  template:
+    metadata:
+      labels:
+        app: report
+    spec:
+      containers:
+      - name: report
+        image: {{ .Values.image.report }}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8086
+        env:
+        - name: POSTGRES_HOST
+          value: {{ .Values.config.POSTGRES_HOST | quote }}
+        - name: POSTGRES_PORT
+          value: {{ .Values.config.POSTGRES_PORT | quote }}
+        - name: POSTGRES_DB
+          value: {{ .Values.config.REPORT_DB | quote }}
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: app-secret
+              key: POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: app-secret
+              key: POSTGRES_PASSWORD
+        - name: RABBIT_MQ_HOST
+          value: {{ .Values.config.RABBIT_MQ_HOST | quote }}
+        - name: RABBIT_MQ_PORT
+          value: {{ .Values.config.RABBIT_MQ_PORT | quote }}
+        - name: RABBIT_MQ_USER
+          valueFrom:
+            secretKeyRef:
+              name: app-secret
+              key: RABBIT_MQ_USER
+        - name: RABBIT_MQ_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: app-secret
+              key: RABBIT_MQ_PASSWORD
+        - name: RABBIT_MQ_QUEUE_NAME
+          value: {{ .Values.config.RABBIT_MQ_QUEUE_NAME | quote }}
+        - name: RABBIT_MQ_EXCHANGE
+          value: {{ .Values.config.RABBIT_MQ_EXCHANGE | quote }}
+        - name: PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: app-secret
+              key: PRIVATE_KEY
+        - name: PUBLIC_KEY
+          valueFrom:
+            secretKeyRef:
+              name: app-secret
+              key: PUBLIC_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: report-service
+spec:
+  selector:
+    app: report
+  ports:
+  - port: 8086
+    targetPort: 8086
+  type: ClusterIP

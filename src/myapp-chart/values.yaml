@@ -1,0 +1,62 @@
+replicaCount:
+  gateway: 2
+  booking: 2
+  hotel: 2
+  loyalty: 1
+  payment: 1
+  report: 1
+  session: 1
+  postgres: 1
+  rabbitmq: 5
+
+image:
+  gateway: swarthma/gateway-service:latest
+  booking: swarthma/booking-service:latest
+  hotel: swarthma/hotel-service:latest
+  loyalty: swarthma/loyalty-service:latest
+  payment: swarthma/payment-service:latest
+  report: swarthma/report-service:latest
+  session: swarthma/session-service:latest
+  postgres: swarthma/custom-postgres:13
+  rabbitmq: rabbitmq:3-management
+
+config:
+  POSTGRES_HOST: "postgres"
+  POSTGRES_PORT: "5432"
+  SESSION_DB: "users_db"
+  HOTEL_DB: "hotels_db"
+  BOOKING_DB: "reservations_db"
+  PAYMENT_DB: "payments_db"
+  LOYALTY_DB: "balances_db"
+  REPORT_DB: "statistics_db"
+  SESSION_SERVICE_URL: "http://session-service:8081/api/v1/auth"
+  HOTEL_SERVICE_URL: "http://hotel-service:8082/api/v1/hotels"
+  BOOKING_SERVICE_URL: "http://booking-service:8083/api/v1/booking"
+  LOYALTY_SERVICE_URL: "http://loyalty-service:8085/api/v1/loyalty"
+  REPORT_SERVICE_URL: "http://report-service:8086/api/v1/report"
+  RABBIT_MQ_HOST: "rabbitmq"
+  RABBIT_MQ_PORT: "5672"
+  RABBIT_MQ_QUEUE_NAME: "booking.queue"
+  RABBIT_MQ_EXCHANGE: "booking.exchange"
+  SESSION_SERVICE_HOST: "session-service"
+  SESSION_SERVICE_PORT: "8081"
+  HOTEL_SERVICE_HOST: "hotel-service"
+  HOTEL_SERVICE_PORT: "8082"
+  PAYMENT_SERVICE_HOST: "payment-service"
+  PAYMENT_SERVICE_PORT: "8084"
+  LOYALTY_SERVICE_HOST: "loyalty-service"
+  LOYALTY_SERVICE_PORT: "8085"
+  BOOKING_SERVICE_HOST: "booking-service"
+  BOOKING_SERVICE_PORT: "8083"
+  REPORT_SERVICE_HOST: "report-service"
+  REPORT_SERVICE_PORT: "8086"
+  GATEWAY_SERVICE_UUID: "b51ceda2-bfa5-11eb-8529-0242ac130003"
+  BOOKING_SERVICE_UUID: "911ccb4c-c055-11eb-8529-0242ac130003"
+
+secrets:
+  POSTGRES_USER: "postgres"
+  POSTGRES_PASSWORD: "postgres"
+  RABBIT_MQ_USER: "guest"
+  RABBIT_MQ_PASSWORD: "guest"
+  PRIVATE_KEY: "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC9Q1hl6ossCg5Tr43IW0px2Wz0tDOKRHncreZcew3G+63QuXrLSb5BRh24q0ej4W+Wj8/6RR6vwG1hFtPIBqy6OYUvEdBmOay9eEpzQc2Xy253qSQyxco4FmyNLAwfyk0JS5DKdagT6ct3AqQe9+oGsEHf18CWD/dnYrfKI644uqniI3Lzrk+YnIwZ8BChKMN40qd7XkRuWsJBGEJr+hp1F1KvaYbPz/gqvBJS+IlG37/6mO1xoMaDfPxEUCJbHiWS8PcSeC9TllVVtC+oyPnQzYEbBh7ZfxbwAD3y5FW3qxWN33sQ53XaH7zHondMAQJ6hQROCb6Ml/0bBKfU0hz9AgMBAAECggEANI56Arsx8IXOWrDaZ3PqZVkiZ4WO9mtzh7OGz9GgDsyfBOIs1jzhJ1EoObrehwS4LxA6id4d2mJOPXLQVrB70K7ebCa/P1PuwyKfUghI5kkooPQISE0ijZa0iDNeHonYAKfKSl6H0RfQV3kVSEBB7Z+Oe3F3WnSOmFgSf4CPBdNc240kanQlxsmKjsDmsxLePiYNxU6vDoZt/JKQmSwQUIgznMm7upEmh3UR8q7N757I+dTEhGxs8LLGyvJ2nGnolH9fpkXJlAKHAUvnX1NfUkCgIGiVqpsxwHb5jTmjqpH1U8usaSPZDD0uLf4DLUjIgddpSGcUIjKlaNO9sQXsBQKBgQD5XpNMqgIZgtfEOVJ44auMZqCsIuKXwsICNZmeqSkv5J29ov3V/fkBjDpwiyEXO/9HeFOUEGSNGeFPF4ha0KnNFmeTwDCIPA2vyF3Z049GfRytc4qDqwdplVjgPBPKfrGNmGdHlKKoEHGjpWnuJgOkNhenPKG7zbevpty7TqgluwKBgQDCS6JEl9j34gp5+MoxIbkXt1WOwngnFwRscklTEGJ4wZ3i6GtKIOVzYd7VDqgomB/jnkDQlBK47OzAA54bJBkJ6w83cDGR8D51axYKgKG+Kd8EOeEN4PY+jjKyUpKU3o8o++JKEKs8J2raemb+5YlgiY1ZeDNhL4LrUVa3cIyApwKBgGXo56u6AreoSENx5alvGGt9eYY/j3jT5/N9MjWsDh/7fxeD59avPzcJtsxNn41eQJpVq1pkRKOBgxmOlXP/uJUO5e906KCUYkeHTAt8MR5ufOzJvj7HA3V7ymGBS9lCY49pTDPto3epmLd3H05rDKvsS0hWOAaHMN1BBQ4rO/6HAoGAMQJI/QpcZTJ0OA4EWl5KROwuvaLaEeohaIVvb29bl2AnRjwgDAO+PNt8DLv0uMCekpixeqtPCaxhj5GaCPiTBEhxfydiqZAzAQUw+xc1NTV0lqlO1mRfWKofqZFgfgKhk9HtY4dO2g6LSm7DmhomC97Gc8H5G9OTL25F9GGEX1MCgYEA5CkqAvlJfyCm5lGp2gLMfwElF1oYtgC5xRDpzI6DnMjKhUxeJaMgRkam3mvMA0zg58ZTY9q+CeSSyDohNZpLDZomG7mEuNDWAPbpafo9g8q1g7ucWGeFRgVAmf0xmnJHHmAqODdT9X02abJZMumawCRDtRpPKvNtamO9jex9YgM="
+  PUBLIC_KEY: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvUNYZeqLLAoOU6+NyFtKcdls9LQzikR53K3mXHsNxvut0Ll6y0m+QUYduKtHo+Fvlo/P+kUer8BtYRbTyAasujmFLxHQZjmsvXhKc0HNl8tud6kkMsXKOBZsjSwMH8pNCUuQynWoE+nLdwKkHvfqBrBB39fAlg/3Z2K3yiOuOLqp4iNy865PmJyMGfAQoSjDeNKne15EblrCQRhCa/oadRdSr2mGz8/4KrwSUviJRt+/+pjtcaDGg3z8RFAiWx4lkvD3EngvU5ZVVbQvqMj50M2BGwYe2X8W8AA98uRVt6sVjd97EOd12h+8x6J3TAECeoUETgm+jJf9GwSn1NIc/QIDAQAB"

@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  labels:
+    app: gateway
+spec:
+  replicas: {{ .Values.replicaCount.gateway }}
+  selector:
+    matchLabels:
+      app: gateway
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      containers:
+      - name: gateway
+        image: {{ .Values.image.gateway }}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8087
+        env:
+        - name: SESSION_SERVICE_URL
+          value: {{ .Values.config.SESSION_SERVICE_URL | quote }}
+        - name: HOTEL_SERVICE_URL
+          value: {{ .Values.config.HOTEL_SERVICE_URL | quote }}
+        - name: BOOKING_SERVICE_URL
+          value: {{ .Values.config.BOOKING_SERVICE_URL | quote }}
+        - name: LOYALTY_SERVICE_URL
+          value: {{ .Values.config.LOYALTY_SERVICE_URL | quote }}
+        - name: REPORT_SERVICE_URL
+          value: {{ .Values.config.REPORT_SERVICE_URL | quote }}
+        - name: GATEWAY_SERVICE_UUID
+          value: {{ .Values.config.GATEWAY_SERVICE_UUID | quote }}
+        - name: PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: app-secret
+              key: PRIVATE_KEY
+        - name: PUBLIC_KEY
+          valueFrom:
+            secretKeyRef:
+              name: app-secret
+              key: PUBLIC_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-service
+spec:
+  selector:
+    app: gateway
+  ports:
+  - port: 8087
+    targetPort: 8087
+  type: ClusterIP

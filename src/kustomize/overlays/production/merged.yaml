@@ -1,0 +1,782 @@
+apiVersion: v1
+data:
+  BOOKING_DB: reservations_db
+  BOOKING_SERVICE_HOST: booking-service
+  BOOKING_SERVICE_PORT: "8083"
+  BOOKING_SERVICE_URL: http://booking-service:8083/api/v1/booking
+  BOOKING_SERVICE_UUID: 911ccb4c-c055-11eb-8529-0242ac130003
+  GATEWAY_SERVICE_UUID: b51ceda2-bfa5-11eb-8529-0242ac130003
+  HOTEL_DB: hotels_db
+  HOTEL_SERVICE_HOST: hotel-service
+  HOTEL_SERVICE_PORT: "8082"
+  HOTEL_SERVICE_URL: http://hotel-service:8082/api/v1/hotels
+  LOYALTY_DB: balances_db
+  LOYALTY_SERVICE_HOST: loyalty-service
+  LOYALTY_SERVICE_PORT: "8085"
+  LOYALTY_SERVICE_URL: http://loyalty-service:8085/api/v1/loyalty
+  PAYMENT_DB: payments_db
+  PAYMENT_SERVICE_HOST: payment-service
+  PAYMENT_SERVICE_PORT: "8084"
+  POSTGRES_HOST: postgres
+  POSTGRES_PORT: "5432"
+  RABBIT_MQ_EXCHANGE: booking.exchange
+  RABBIT_MQ_HOST: rabbitmq
+  RABBIT_MQ_PORT: "5672"
+  RABBIT_MQ_QUEUE_NAME: booking.queue
+  REPORT_DB: statistics_db
+  REPORT_SERVICE_HOST: report-service
+  REPORT_SERVICE_PORT: "8086"
+  REPORT_SERVICE_URL: http://report-service:8086/api/v1/report
+  SESSION_DB: users_db
+  SESSION_SERVICE_HOST: session-service
+  SESSION_SERVICE_PORT: "8081"
+  SESSION_SERVICE_URL: http://session-service:8081/api/v1/auth
+kind: ConfigMap
+metadata:
+  name: app-config
+---
+apiVersion: v1
+data:
+  POSTGRES_PASSWORD: cG9zdGdyZXM=
+  POSTGRES_USER: cG9zdGdyZXM=
+  PRIVATE_KEY: TUlJRXZRSUJBREFOQmdrcWhraUc5dzBCQVFFRkFBU0NCS2N3Z2dTakFnRUFBb0lCQVFDOVExaGw2b3NzQ2c1VHI0M0lXMHB4Mld6MHRET0tSSG5jcmVaY2V3M0crNjNRdVhyTFNiNUJSaDI0cTBlajRXK1dqOC82UlI2dndHMWhGdFBJQnF5Nk9ZVXZFZEJtT2F5OWVFcHpRYzJYeTI1M3FTUXl4Y280Rm15TkxBd2Z5azBKUzVES2RhZ1Q2Y3QzQXFRZTkrb0dzRUhmMThDV0QvZG5ZcmZLSTY0NHVxbmlJM0x6cmsrWW5Jd1o4QkNoS01ONDBxZDdYa1J1V3NKQkdFSnIraHAxRjFLdmFZYlB6L2dxdkJKUytJbEczNy82bU8xeG9NYURmUHhFVUNKYkhpV1M4UGNTZUM5VGxsVlZ0QytveVBuUXpZRWJCaDdaZnhid0FEM3k1RlczcXhXTjMzc1E1M1hhSDd6SG9uZE1BUUo2aFFST0NiNk1sLzBiQktmVTBoejlBZ01CQUFFQ2dnRUFOSTU2QXJzeDhJWE9XckRhWjNQcVpWa2laNFdPOW10emg3T0d6OUdnRHN5ZkJPSXMxanpoSjFFb09icmVod1M0THhBNmlkNGQybUpPUFhMUVZyQjcwSzdlYkNhL1AxUHV3eUtmVWdoSTVra29vUFFJU0UwaWpaYTBpRE5lSG9uWUFLZktTbDZIMFJmUVYza1ZTRUJCN1orT2UzRjNXblNPbUZnU2Y0Q1BCZE5jMjQwa2FuUWx4c21LanNEbXN4TGVQaVlOeFU2dkRvWnQvSktRbVN3UVVJZ3puTW03dXBFbWgzVVI4cTdONzU3SStkVEVoR3hzOExMR3l2SjJuR25vbEg5ZnBrWEpsQUtIQVV2blgxTmZVa0NnSUdpVnFwc3h3SGI1alRtanFwSDFVOHVzYVNQWkREMHVMZjRETFVqSWdkZHBTR2NVSWpLbGFOTzlzUVhzQlFLQmdRRDVYcE5NcWdJWmd0ZkVPVko0NGF1TVpxQ3NJdUtYd3NJQ05abWVxU2t2NUoyOW92M1YvZmtCakRwd2l5RVhPLzlIZUZPVUVHU05HZUZQRjRoYTBLbk5GbWVUd0RDSVBBMnZ5RjNaMDQ5R2ZSeXRjNHFEcXdkcGxWamdQQlBLZnJHTm1HZEhsS0tvRUhHanBXbnVKZ09rTmhlblBLRzd6YmV2cHR5N1RxZ2x1d0tCZ1FEQ1M2SkVsOWozNGdwNStNb3hJYmtYdDFXT3duZ25Gd1JzY2tsVEVHSjR3WjNpNkd0S0lPVnpZZDdWRHFnb21CL2pua0RRbEJLNDdPekFBNTRiSkJrSjZ3ODNjREdSOEQ1MWF4WUtnS0crS2Q4RU9lRU40UFkrampLeVVwS1UzbzhvKytKS0VLczhKMnJhZW1iKzVZbGdpWTFaZUROaEw0THJVVmEzY0l5QXB3S0JnR1hvNTZ1NkFyZW9TRU54NWFsdkdHdDllWVkvajNqVDUvTjlNaldzRGgvN2Z4ZUQ1OWF2UHpjSnRzeE5uNDFlUUpwVnExcGtSS09CZ3htT2xYUC91SlVPNWU5MDZLQ1VZa2VIVEF0OE1SNXVmT3pKdmo3SEEzVjd5bUdCUzlsQ1k0OXBURFB0bzNlcG1MZDNIMDVyREt2c1MwaFdPQWFITU4xQkJRNHJPLzZIQW9HQU1RSkkvUXBjWlRKME9BNEVXbDVLUk93dXZhTGFFZW9oYUlWdmIyOWJsMkFuUmp3Z0RBTytQTnQ4REx2MHVNQ2VrcGl4ZXF0UENheGhqNUdhQ1BpVEJFaHhmeWRpcVpBekFRVXcreGMxTlRWMGxxbE8xbVJmV0tvZnFaRmdmZ0toazlIdFk0ZE8yZzZMU203RG1ob21DOTdHYzhINUc5T1RMMjVGOUdHRVgxTUNnWUVBNUNrcUF2bEpmeUNtNWxHcDJnTE1md0VsRjFvWXRnQzV4UkRwekk2RG5NaktoVXhlSmFNZ1JrYW0zbXZNQTB6ZzU4WlRZOXErQ2VTU3lEb2hOWnBMRFpvbUc3bUV1TkRXQVBicGFmbzlnOHExZzd1Y1dHZUZSZ1ZBbWYweG1uSkhIbUFxT0RkVDlYMDJhYkpaTXVtYXdDUkR0UnBQS3ZOdGFtTzlqZXg5WWdNPQ==
+  PUBLIC_KEY: TUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF2VU5ZWmVxTExBb09VNitOeUZ0S2NkbHM5TFF6aWtSNTNLM21YSHNOeHZ1dDBMbDZ5MG0rUVVZZHVLdEhvK0Z2bG8vUCtrVWVyOEJ0WVJiVHlBYXN1am1GTHhIUVpqbXN2WGhLYzBITmw4dHVkNmtrTXNYS09CWnNqU3dNSDhwTkNVdVF5bldvRStuTGR3S2tIdmZxQnJCQjM5ZkFsZy8zWjJLM3lpT3VPTHFwNGlOeTg2NVBtSnlNR2ZBUW9TakRlTktuZTE1RWJsckNRUmhDYS9vYWRSZFNyMm1HejgvNEtyd1NVdmlKUnQrLytwanRjYURHZzN6OFJGQWlXeDRsa3ZEM0VuZ3ZVNVpWVmJRdnFNajUwTTJCR3dZZTJYOFc4QUE5OHVSVnQ2c1ZqZDk3RU9kMTJoKzh4NkozVEFFQ2VvVUVUZ20rakpmOUd3U24xTkljL1FJREFRQUIK
+  RABBIT_MQ_PASSWORD: Z3Vlc3Q=
+  RABBIT_MQ_USER: Z3Vlc3Q=
+kind: Secret
+metadata:
+  name: app-secret
+type: Opaque
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: booking-service
+spec:
+  ports:
+  - port: 8083
+    targetPort: 8083
+  selector:
+    app: booking
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-service
+spec:
+  ports:
+  - port: 8087
+    targetPort: 8087
+  selector:
+    app: gateway
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hotel-service
+spec:
+  ports:
+  - port: 8082
+    targetPort: 8082
+  selector:
+    app: hotel
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: loyalty-service
+spec:
+  ports:
+  - port: 8085
+    targetPort: 8085
+  selector:
+    app: loyalty
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-service
+spec:
+  ports:
+  - port: 8084
+    targetPort: 8084
+  selector:
+    app: payment
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  ports:
+  - port: 5432
+    targetPort: 5432
+  selector:
+    app: postgres
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq
+spec:
+  ports:
+  - name: amqp
+    port: 5672
+    targetPort: 5672
+  - name: management
+    port: 15672
+    targetPort: 15672
+  selector:
+    app: rabbitmq
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: report-service
+spec:
+  ports:
+  - port: 8086
+    targetPort: 8086
+  selector:
+    app: report
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: session-service
+spec:
+  ports:
+  - port: 8081
+    targetPort: 8081
+  selector:
+    app: session
+  type: ClusterIP
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-pv
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 5Gi
+  hostPath:
+    path: /data/postgres
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - master
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: ""
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: booking
+  name: booking
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: booking
+  template:
+    metadata:
+      labels:
+        app: booking
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_HOST
+              name: app-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_PORT
+              name: app-config
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              key: BOOKING_DB
+              name: app-config
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_USER
+              name: app-secret
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_PASSWORD
+              name: app-secret
+        - name: RABBIT_MQ_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: RABBIT_MQ_HOST
+              name: app-config
+        - name: RABBIT_MQ_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: RABBIT_MQ_PORT
+              name: app-config
+        - name: RABBIT_MQ_USER
+          valueFrom:
+            secretKeyRef:
+              key: RABBIT_MQ_USER
+              name: app-secret
+        - name: RABBIT_MQ_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: RABBIT_MQ_PASSWORD
+              name: app-secret
+        - name: RABBIT_MQ_QUEUE_NAME
+          valueFrom:
+            configMapKeyRef:
+              key: RABBIT_MQ_QUEUE_NAME
+              name: app-config
+        - name: RABBIT_MQ_EXCHANGE
+          valueFrom:
+            configMapKeyRef:
+              key: RABBIT_MQ_EXCHANGE
+              name: app-config
+        - name: HOTEL_SERVICE_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: HOTEL_SERVICE_HOST
+              name: app-config
+        - name: HOTEL_SERVICE_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: HOTEL_SERVICE_PORT
+              name: app-config
+        - name: PAYMENT_SERVICE_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: PAYMENT_SERVICE_HOST
+              name: app-config
+        - name: PAYMENT_SERVICE_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: PAYMENT_SERVICE_PORT
+              name: app-config
+        - name: LOYALTY_SERVICE_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: LOYALTY_SERVICE_HOST
+              name: app-config
+        - name: LOYALTY_SERVICE_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: LOYALTY_SERVICE_PORT
+              name: app-config
+        - name: PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              key: PRIVATE_KEY
+              name: app-secret
+        - name: PUBLIC_KEY
+          valueFrom:
+            secretKeyRef:
+              key: PUBLIC_KEY
+              name: app-secret
+        image: swarthma/booking-service:latest
+        imagePullPolicy: IfNotPresent
+        name: booking
+        ports:
+        - containerPort: 8083
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: gateway
+  name: gateway
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: gateway
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      containers:
+      - env:
+        - name: SESSION_SERVICE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: SESSION_SERVICE_URL
+              name: app-config
+        - name: HOTEL_SERVICE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: HOTEL_SERVICE_URL
+              name: app-config
+        - name: BOOKING_SERVICE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: BOOKING_SERVICE_URL
+              name: app-config
+        - name: LOYALTY_SERVICE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: LOYALTY_SERVICE_URL
+              name: app-config
+        - name: REPORT_SERVICE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: REPORT_SERVICE_URL
+              name: app-config
+        - name: GATEWAY_SERVICE_UUID
+          valueFrom:
+            configMapKeyRef:
+              key: GATEWAY_SERVICE_UUID
+              name: app-config
+        - name: PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              key: PRIVATE_KEY
+              name: app-secret
+        - name: PUBLIC_KEY
+          valueFrom:
+            secretKeyRef:
+              key: PUBLIC_KEY
+              name: app-secret
+        image: swarthma/gateway-service:latest
+        imagePullPolicy: IfNotPresent
+        name: gateway
+        ports:
+        - containerPort: 8087
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hotel
+  name: hotel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hotel
+  template:
+    metadata:
+      labels:
+        app: hotel
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_HOST
+              name: app-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_PORT
+              name: app-config
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              key: HOTEL_DB
+              name: app-config
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_USER
+              name: app-secret
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_PASSWORD
+              name: app-secret
+        - name: PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              key: PRIVATE_KEY
+              name: app-secret
+        - name: PUBLIC_KEY
+          valueFrom:
+            secretKeyRef:
+              key: PUBLIC_KEY
+              name: app-secret
+        image: swarthma/hotel-service:latest
+        imagePullPolicy: IfNotPresent
+        name: hotel
+        ports:
+        - containerPort: 8082
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: loyalty
+  name: loyalty
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loyalty
+  template:
+    metadata:
+      labels:
+        app: loyalty
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_HOST
+              name: app-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_PORT
+              name: app-config
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              key: LOYALTY_DB
+              name: app-config
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_USER
+              name: app-secret
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_PASSWORD
+              name: app-secret
+        - name: PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              key: PRIVATE_KEY
+              name: app-secret
+        - name: PUBLIC_KEY
+          valueFrom:
+            secretKeyRef:
+              key: PUBLIC_KEY
+              name: app-secret
+        image: swarthma/loyalty-service:latest
+        imagePullPolicy: IfNotPresent
+        name: loyalty
+        ports:
+        - containerPort: 8085
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: payment
+  name: payment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment
+  template:
+    metadata:
+      labels:
+        app: payment
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_HOST
+              name: app-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_PORT
+              name: app-config
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              key: PAYMENT_DB
+              name: app-config
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_USER
+              name: app-secret
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_PASSWORD
+              name: app-secret
+        - name: PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              key: PRIVATE_KEY
+              name: app-secret
+        - name: PUBLIC_KEY
+          valueFrom:
+            secretKeyRef:
+              key: PUBLIC_KEY
+              name: app-secret
+        image: swarthma/payment-service:latest
+        imagePullPolicy: IfNotPresent
+        name: payment
+        ports:
+        - containerPort: 8084
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: postgres
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_USER
+              name: app-secret
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_PASSWORD
+              name: app-secret
+        - name: POSTGRES_DB
+          value: postgres
+        image: swarthma/custom-postgres:13
+        imagePullPolicy: IfNotPresent
+        name: postgres
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgres-storage
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: postgres-pvc
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: rabbitmq
+  name: rabbitmq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      containers:
+      - env:
+        - name: RABBITMQ_DEFAULT_USER
+          valueFrom:
+            secretKeyRef:
+              key: RABBIT_MQ_USER
+              name: app-secret
+        - name: RABBITMQ_DEFAULT_PASS
+          valueFrom:
+            secretKeyRef:
+              key: RABBIT_MQ_PASSWORD
+              name: app-secret
+        image: rabbitmq:3-management
+        name: rabbitmq
+        ports:
+        - containerPort: 5672
+          name: amqp
+        - containerPort: 15672
+          name: management
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: report
+  name: report
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: report
+  template:
+    metadata:
+      labels:
+        app: report
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_HOST
+              name: app-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_PORT
+              name: app-config
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              key: REPORT_DB
+              name: app-config
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_USER
+              name: app-secret
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_PASSWORD
+              name: app-secret
+        - name: RABBIT_MQ_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: RABBIT_MQ_HOST
+              name: app-config
+        - name: RABBIT_MQ_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: RABBIT_MQ_PORT
+              name: app-config
+        - name: RABBIT_MQ_USER
+          valueFrom:
+            secretKeyRef:
+              key: RABBIT_MQ_USER
+              name: app-secret
+        - name: RABBIT_MQ_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: RABBIT_MQ_PASSWORD
+              name: app-secret
+        - name: RABBIT_MQ_QUEUE_NAME
+          valueFrom:
+            configMapKeyRef:
+              key: RABBIT_MQ_QUEUE_NAME
+              name: app-config
+        - name: RABBIT_MQ_EXCHANGE
+          valueFrom:
+            configMapKeyRef:
+              key: RABBIT_MQ_EXCHANGE
+              name: app-config
+        - name: PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              key: PRIVATE_KEY
+              name: app-secret
+        - name: PUBLIC_KEY
+          valueFrom:
+            secretKeyRef:
+              key: PUBLIC_KEY
+              name: app-secret
+        image: swarthma/report-service:latest
+        imagePullPolicy: IfNotPresent
+        name: report
+        ports:
+        - containerPort: 8086
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: session
+  name: session
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: session
+  template:
+    metadata:
+      labels:
+        app: session
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_HOST
+              name: app-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_PORT
+              name: app-config
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              key: SESSION_DB
+              name: app-config
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_USER
+              name: app-secret
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_PASSWORD
+              name: app-secret
+        - name: PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              key: PRIVATE_KEY
+              name: app-secret
+        - name: PUBLIC_KEY
+          valueFrom:
+            secretKeyRef:
+              key: PUBLIC_KEY
+              name: app-secret
+        image: swarthma/session-service:latest
+        imagePullPolicy: IfNotPresent
+        name: session
+        ports:
+        - containerPort: 8081
